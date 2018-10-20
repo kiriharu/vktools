@@ -7,7 +7,6 @@ __token__ = input("Enter access_token: ")
 def call(method, options={}, **kwargs):
     '''Фукнция вызова api ВК.'''
     options['access_token'] = __token__
-    #токен нужно сохранить в файле token.txt в папке со скриптом
     options['v'] = '5.73'
     options.update(kwargs)
     resp = requests.get('https://api.vk.com/method/'+method, params=options).json()
