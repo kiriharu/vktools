@@ -2,11 +2,9 @@
 import time
 import requests
 
-__token__ = input("Enter access_token: ")
-
 def call(method, options={}, **kwargs):
     '''Фукнция вызова api ВК.'''
-    options['access_token'] = __token__
+    options['access_token'] = token
     options['v'] = '5.73'
     options.update(kwargs)
     resp = requests.get('https://api.vk.com/method/'+method, params=options).json()
@@ -33,9 +31,9 @@ def get_albums(userid):
     get_albums_resp = call('photos.getAlbums', options)
     return get_albums_resp
 
-def photos_get(id, albumid):
+def photos_get(owner_id, albumid):
     '''Получение списка фото по id владельца и id альбома'''
-    photos = call('photos.get', owner_id=id, album_id=albumid)['response']['items']
+    photos = call('photos.get', owner_id=owner_id, album_id=albumid)['response']['items']
     urls = []
     for pic in photos:
         urls.append(gethiresphotolink(pic))
@@ -69,5 +67,6 @@ def main():
                 print('Путь не найден или запись в него невозможна')
 
 if __name__ == '__main__':
+    token = input("Введите access token: ")
     main()
     print("Введите enter чтобы выйти.")
