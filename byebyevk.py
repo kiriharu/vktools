@@ -1,11 +1,10 @@
 #Легендарный byebyevk. Лучше посмотрите тут - https://github.com/asylumone/bye-bye-vk, там он более прокачан. Требует requests и time.
 import requests, time
 from pprint import pprint
-__token__ = input('Прощай, ВКонтакте. Введите ваш токен (его можно получить например здесь https://vkhost.github.io/): ')
 
 def call(method, options={}, **kwargs):
     '''Функция вызова api VK'''
-    options['access_token'] = __token__
+    options['access_token'] = token
     options['v'] = '5.80'
     options.update(kwargs)
     resp = requests.get('https://api.vk.com/method/'+method, params=options).json()
@@ -86,6 +85,7 @@ def messages():
         print('Удалены сообщения от %s' % dialog)
         time.sleep(2)
 
+token = input('Прощай, ВКонтакте. Введите ваш токен (его можно получить например здесь https://vkhost.github.io/): ')
 while True:
     print('Прощай, ВКудахт!')
     option = input("""1) Удалить всё со стены
